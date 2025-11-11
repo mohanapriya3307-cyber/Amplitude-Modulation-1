@@ -73,31 +73,39 @@ Compare the original modulating signal with the demodulated signal. PROCEDURE
 •	Execute the code
 •	If any Error, correct it in code and execute again
 •	Verify the generated waveform using Tabulation and Model Waveform
-
-Program
-
-
-
-Output Waveform
-
-
-
-
-
-TABULATION:
-
-
-
-Calculation
-1.	ma (Theory) = am/ac =
-2.	ma(Practical) = (Emax-Emin)/(Emax+Emin) =
-
-
 MODEL GRAPH
  <img width="919" height="1290" alt="image" src="https://github.com/user-attachments/assets/55326c5b-7dd5-4873-aaf6-d219bb7c4420" />
 
- 
- 
+Program
+```
+Am=8;
+Fm=460;
+Ac=16;
+Fc=4600;
+Fs=120000;
+t=0:1/Fs:2/Fm;
+em = Am*sin(2*3.14*Fm*t);
+subplot(4,1,1);
+plot(t,em);
+xgrid;
+ec = Ac*sin(2*3.14*Fc*t);
+subplot(4,1,2);
+plot(t,ec);
+xgrid;
+eam = (Ac+(Am*sin(2*3.14*Fm*t))).*sin(2*3.14*Fc*t);
+subplot(4,1,3);
+plot(t,eam);
+xgrid;
+demodulated_signal = abs(hilbert(eam)) - Ac;
+subplot(4,1,4);
+plot(t, demodulated_signal);
+```
+Output Waveform
+
+<img width="765" height="725" alt="image" src="https://github.com/user-attachments/assets/2e855e57-ae4a-4162-9cb3-fcc2a65617fd" />
+
+TABULATION:
+<img width="957" height="650" alt="image" src="https://github.com/user-attachments/assets/dcdaa0f7-8f11-4ede-b705-2cb98b24a1e7" />
 
 
 RESULT:
